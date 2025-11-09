@@ -476,6 +476,12 @@ def main():
             muc_bot_nick = "PrometheusAlerts"
         xmpp_app.plugin["xep_0045"].join_muc(muc_jid, muc_bot_nick)
 
+    if muc_jid:
+        recipients = [
+            (jid, "groupchat") if jid == muc_jid else (jid, mtype)
+            for (jid, mtype) in recipients
+        ]
+    
     web_app = web.Application()
     web_app["text_template"] = text_template
     web_app["html_template"] = html_template
